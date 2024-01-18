@@ -48,9 +48,9 @@ namespace MaxTemp
                         string line = reader.ReadLine();
                         string[] values = line.Split(',');
 
-                        if(values.Length >= 0)
+                        if(values.Length >= 3)
                         {
-                            double temperature = double.Parse(values[0], CultureInfo.InvariantCulture);
+                            double temperature = double.Parse(values[2], CultureInfo.InvariantCulture);
 
                             if (temperature > highestTemperature)
                             {
