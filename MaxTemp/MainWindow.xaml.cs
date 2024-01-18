@@ -36,6 +36,15 @@ namespace MaxTemp
         /// <param name="e"></param>
         private void BtnAuswerten_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+
+            }
+            catch 
+            {
+                
+            }
+
             //Zugriff auf Datei erstellen.
 
             //Anfangswert setzen, um sinnvoll vergleichen zu können.
