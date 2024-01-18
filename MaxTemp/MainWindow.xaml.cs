@@ -36,22 +36,36 @@ namespace MaxTemp
         /// <param name="e"></param>
         private void BtnAuswerten_Click(object sender, RoutedEventArgs e)
         {
-            //Zugriff auf Datei erstellen.
+            try
+            {
+                string filePath = "temps.csv";
+                double highestTemperature = 0;
 
-            //Anfangswert setzen, um sinnvoll vergleichen zu können.
+                using (StreamReader reader = new StreamReader(filePath))
+                {
+                    while(!reader.EndOfStream)
+                    {
+                        string line = reader.ReadLine();
+                        string[] values = line.Split(',');
 
+                        if(values.Length >= 3)
+                        {
+                            double temperature = double.Parse(values[2], CultureInfo.InvariantCulture);
 
-            //In einer Schleife die Werte holen und auswerten. Den größten Wert "merken".
+                            if (temperature > highestTemperature)
+                            {
+                                highestTemperature = temperature;
+                            }
+                        }
+                    }
+                }
 
-
-            //Datei wieder freigeben.
-
-
-            //Höchstwert auf Oberfläche ausgeben.
-
-            MessageBox.Show("Gleich kachelt das Programm...");
-            //kommentieren Sie die Exception aus.
-            throw new Exception("peng");
+                MessageBox.Show($"Der höchste Wert ist: {highestTemperature}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Fehler beim Auswerten: {ex.Message}");
+            }
         }
     }
 }
