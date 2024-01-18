@@ -38,29 +38,34 @@ namespace MaxTemp
         {
             try
             {
-                string filePath = "temp.csv";
+                string filePath = "temps.csv";
+                double highestTemperature = 0;
+
+                using (StreamReader reader = new StreamReader(filePath))
+                {
+                    while(!reader.EndOfStream)
+                    {
+                        string line = reader.ReadLine();
+                        string[] values = line.Split(',');
+
+                        if(values.Length >= 0)
+                        {
+                            double temperature = double.Parse(values[0], CultureInfo.InvariantCulture);
+
+                            if (temperature > highestTemperature)
+                            {
+                                highestTemperature = temperature;
+                            }
+                        }
+                    }
+                }
+
+                MessageBox.Show($"Der höchste Wert ist: {highestTemperature}");
             }
-            catch 
+            catch (Exception ex)
             {
-                
+                MessageBox.Show($"Fehler beim Auswerten: {ex.Message}");
             }
-
-            //Zugriff auf Datei erstellen.
-
-            //Anfangswert setzen, um sinnvoll vergleichen zu können.
-
-
-            //In einer Schleife die Werte holen und auswerten. Den größten Wert "merken".
-
-
-            //Datei wieder freigeben.
-
-
-            //Höchstwert auf Oberfläche ausgeben.
-
-            MessageBox.Show("Gleich kachelt das Programm...");
-            //kommentieren Sie die Exception aus.
-            throw new Exception("peng");
         }
     }
 }
