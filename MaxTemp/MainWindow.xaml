@@ -19,6 +19,8 @@
             <Label Grid.Row="0" Name="lblAufforderung" Margin="0,-10,0,10">Bitte klicken, um Temperaturen auszuwerten.</Label>
             <Button Grid.Row="1" Name="btnAuswerten" Click="BtnAuswerten_Click" Margin="5,0,5,26" Grid.RowSpan="2">Auswerten</Button>
             <Label Grid.Row="2" x:Name="lblAusgabe" Margin="5,24,90,-1" Content="Die höchste Temperatur ist: "/>
+            <TextBlock Grid.Row="2" x:Name="txtHighestTemperature" Margin="162,29,0,0" VerticalAlignment="Top"/>
+
 
         </Grid>
     </Viewbox>

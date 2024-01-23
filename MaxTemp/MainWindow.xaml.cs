@@ -59,8 +59,7 @@ namespace MaxTemp
                         }
                     }
                 }
-
-                MessageBox.Show($"Der höchste Wert ist: {highestTemperature}");
+                txtHighestTemperature.Text = highestTemperature.ToString(CultureInfo.InvariantCulture);
             }
             catch (Exception ex)
             {
