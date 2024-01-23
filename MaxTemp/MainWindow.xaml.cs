@@ -66,5 +66,10 @@ namespace MaxTemp
                 MessageBox.Show($"Fehler beim Auswerten: {ex.Message}");
             }
         }
+
+        private void btnBeenden_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }
