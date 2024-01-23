@@ -59,7 +59,7 @@ namespace MaxTemp
                         }
                     }
                 }
-                txtHighestTemperature.Text = highestTemperature.ToString(CultureInfo.InvariantCulture);
+                txtHighestTemperature.Text = highestTemperature.ToString(CultureInfo.InvariantCulture) + " C°";
             }
             catch (Exception ex)
             {
