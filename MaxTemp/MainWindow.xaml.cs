@@ -1,7 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
 namespace MaxTemp
 {
@@ -18,15 +30,17 @@ namespace MaxTemp
             {
                 string filePath = "temps.csv";
                 double highestTemperature = 0;
+                double totalTemperature = 0;
+                int temperatureCount = 0;
 
                 using (StreamReader reader = new StreamReader(filePath))
                 {
-                    while(!reader.EndOfStream)
+                    while (!reader.EndOfStream)
                     {
                         string line = reader.ReadLine();
                         string[] values = line.Split(',');
 
-                        if(values.Length >= 3)
+                        if (values.Length >= 3)
                         {
                             double temperature = double.Parse(values[2], CultureInfo.InvariantCulture);
 
@@ -34,10 +48,16 @@ namespace MaxTemp
                             {
                                 highestTemperature = temperature;
                             }
+
+                            totalTemperature += temperature;
+                            temperatureCount++;
                         }
                     }
                 }
-                txtHighestTemperature.Text = highestTemperature.ToString(CultureInfo.InvariantCulture) + " C°";
+
+                double averageTemperature = totalTemperature / temperatureCount;
+                txtHighestTemperature.Text = highestTemperature.ToString("F2", CultureInfo.InvariantCulture) + " C°";
+                txtAverageTemperature.Text = averageTemperature.ToString("F2", CultureInfo.InvariantCulture) + " C°";
             }
             catch (Exception ex)
             {
