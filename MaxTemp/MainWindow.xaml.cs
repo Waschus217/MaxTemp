@@ -29,7 +29,8 @@ namespace MaxTemp
             try
             {
                 string filePath = "temps.csv";
-                double highestTemperature = 0;
+                double highestTemperature = double.MinValue; // Set to minimum possible value
+                double lowestTemperature = double.MaxValue; // Set to maximum possible value
                 double totalTemperature = 0;
                 int temperatureCount = 0;
 
@@ -49,6 +50,11 @@ namespace MaxTemp
                                 highestTemperature = temperature;
                             }
 
+                            if (temperature < lowestTemperature)
+                            {
+                                lowestTemperature = temperature;
+                            }
+
                             totalTemperature += temperature;
                             temperatureCount++;
                         }
@@ -57,6 +63,7 @@ namespace MaxTemp
 
                 double averageTemperature = totalTemperature / temperatureCount;
                 txtHighestTemperature.Text = highestTemperature.ToString("F2", CultureInfo.InvariantCulture) + " C°";
+                txtLowestTemperature.Text = lowestTemperature.ToString("F2", CultureInfo.InvariantCulture) + " C°";
                 txtAverageTemperature.Text = averageTemperature.ToString("F2", CultureInfo.InvariantCulture) + " C°";
             }
             catch (Exception ex)
