@@ -38,7 +38,8 @@
 
                 </StackPanel>
 
-                <Button Grid.Row="2" Name="btnBeenden" Click="btnBeenden_Click" Margin="10" HorizontalAlignment="Left" Width="75" FontSize="14" Background="Black" Foreground="White">Beenden</Button>
+                <Button Grid.Row="2" Name="btnBeenden" Click="btnBeenden_Click" Margin="10,10,0,24" HorizontalAlignment="Left" Width="60" FontSize="14" Background="Black" Foreground="White">Beenden</Button>
+                <Button Grid.Row="2" Name="btnChangeMode" Click="btnChangeMode_Click" Margin="83,16,0,29" HorizontalAlignment="Left" Width="35" Height="12" FontSize="6" RenderTransformOrigin="0.072,0.501">Modus</Button>
             </Grid>
         </Grid>
     </Viewbox>
