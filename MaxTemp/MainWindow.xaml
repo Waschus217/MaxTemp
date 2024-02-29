@@ -5,28 +5,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MaxTemp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" ResizeMode="NoResize">
+        Title="Temperaturen Auswerten" Height="600" Width="800" ResizeMode="NoResize" Background="Black">
     <Viewbox>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="396" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" />
-            </Grid.RowDefinitions>
-            <Label Grid.Row="0" Name="lblAufforderung" Margin="5,-37,-5,37">Bitte klicken, um Temperaturen auszuwerten.</Label>
-            <Button Name="btnAuswerten" Click="BtnAuswerten_Click" Margin="5,-7,5,3">Auswerten</Button>
-            <Button Grid.Row="1" Name="btnBeenden" Click="btnBeenden_Click" Margin="5,55,0,-29" Grid.RowSpan="2" HorizontalAlignment="Left" Width="35" Height="12" FontSize="6">Beenden</Button>
-            <Label Grid.Row="2" x:Name="lblAusgabe" Margin="5,0,90,23" Content="Höchst Temperatur: "/>
-            <Label Grid.Row="2" x:Name="lblAverageTemp" Margin="5,19,90,4" Content="Durchschnittliche Temperatur: "/>
-            <Label Grid.Row="2" x:Name="lblLowestTemp" Margin="5,37,90,-14" Content="Niedrigste Temperatur: "/>
-            <TextBlock Grid.Row="2" x:Name="txtHighestTemperature" Margin="175,6,0,0" VerticalAlignment="Top"/>
-            <TextBlock Grid.Row="2" x:Name="txtAverageTemperature" Margin="175,24,0,0" VerticalAlignment="Top"/>
-            <TextBlock Grid.Row="2" x:Name="txtLowestTemperature" Margin="175,40,0,0" VerticalAlignment="Top"/>
 
+            <Grid Grid.Column="1" Background="Black">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
 
+                <Label Grid.Row="0" Name="lblAufforderung" Margin="10" FontSize="16" Foreground="White" HorizontalContentAlignment="Center">Bitte klicken, um Temperaturen auszuwerten.</Label>
+                <Button Grid.Row="0" Name="btnAuswerten" Click="BtnAuswerten_Click" Margin="10,40,10,10" FontSize="14" Background="Black" Foreground="White">Auswerten</Button>
+
+                <StackPanel Grid.Row="1" Margin="10">
+                    <Label x:Name="lblAusgabe" Content="Höchste Temperatur:" FontSize="14" Foreground="White"/>
+                    <Label x:Name="lblAverageTemp" Content="Durchschnittliche Temperatur:" FontSize="14" Foreground="White"/>
+                    <Label x:Name="lblLowestTemp" Content="Niedrigste Temperatur:" FontSize="14" Foreground="White"/>
+                    <TextBlock x:Name="txtHighestTemperature" Margin="200,-78,10,0" VerticalAlignment="Top" Foreground="White"/>
+                    <TextBlock x:Name="txtAverageTemperature" Margin="200,-50,10,0" VerticalAlignment="Top" Foreground="White"/>
+                    <TextBlock x:Name="txtLowestTemperature" Margin="200,-23,10,0" VerticalAlignment="Top" Foreground="White"/>
+                </StackPanel>
+
+                <Button Grid.Row="2" Name="btnBeenden" Click="btnBeenden_Click" Margin="10" HorizontalAlignment="Left" Width="75" FontSize="14" Background="Black" Foreground="White">Beenden</Button>
+            </Grid>
         </Grid>
     </Viewbox>
 </Window>
