@@ -9,9 +9,9 @@
     <Viewbox>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="396" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="0*" />
+                <ColumnDefinition Width="500" />
+                <ColumnDefinition Width="0*" />
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="1" Background="Black">
@@ -26,11 +26,16 @@
 
                 <StackPanel Grid.Row="1" Margin="10">
                     <Label x:Name="lblAusgabe" Content="Höchste Temperatur:" FontSize="14" Foreground="White"/>
-                    <Label x:Name="lblAverageTemp" Content="Durchschnittliche Temperatur:" FontSize="14" Foreground="White"/>
                     <Label x:Name="lblLowestTemp" Content="Niedrigste Temperatur:" FontSize="14" Foreground="White"/>
-                    <TextBlock x:Name="txtHighestTemperature" Margin="200,-78,10,0" VerticalAlignment="Top" Foreground="White"/>
-                    <TextBlock x:Name="txtAverageTemperature" Margin="200,-50,10,0" VerticalAlignment="Top" Foreground="White"/>
-                    <TextBlock x:Name="txtLowestTemperature" Margin="200,-23,10,0" VerticalAlignment="Top" Foreground="White"/>
+                    <Label x:Name="lblAverageTemp" Content="Durchschnittliche Temperatur:" FontSize="14" Foreground="White"/>
+                    <TextBlock x:Name="txtMostFrequentSensorHigh" Margin="300,-78,0,0" VerticalAlignment="Top" Foreground="White"/>
+                    <TextBlock x:Name="txtMostFrequentSensorLow" Margin="300,-50,0,0" VerticalAlignment="Top" Foreground="White"/>
+                    <TextBlock x:Name="txtAverageTemperature" Margin="200,-23,0,0" VerticalAlignment="Top" Foreground="White"/>
+                    <TextBlock x:Name="txtHighestTemperature" Margin="200,-78,170,0" VerticalAlignment="Top" Foreground="White"/>
+                    <TextBlock x:Name="txtLowestTemperature" Margin="200,-50,170,0" VerticalAlignment="Top" Foreground="White"/>
+
+
+
                 </StackPanel>
 
                 <Button Grid.Row="2" Name="btnBeenden" Click="btnBeenden_Click" Margin="10" HorizontalAlignment="Left" Width="75" FontSize="14" Background="Black" Foreground="White">Beenden</Button>
