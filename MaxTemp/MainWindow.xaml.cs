@@ -19,6 +19,8 @@ namespace MaxTemp
 {
     public partial class MainWindow : Window
     {
+        private bool isDarkMode = false;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -76,5 +78,55 @@ namespace MaxTemp
         {
             this.Close();
         }
+
+        private void btnChangeMode_Click(object sender, RoutedEventArgs e)
+        {
+            isDarkMode = !isDarkMode;
+            changeMode(isDarkMode);
+        }
+
+        private void changeMode(bool isDarkMode) 
+        {
+            isDarkMode = !isDarkMode;
+            Brush foregroundColor = isDarkMode ? Brushes.White : Brushes.Black;
+            if (isDarkMode)
+            {
+                // Ändern Sie hier in den Dunkelmodus
+                btnChangeMode.Content = "Light";
+                this.Background = Brushes.Black;
+                btnChangeMode.Foreground = Brushes.White;
+                ChangeAllTextForeground(this, Brushes.White);
+            }
+            else
+            {
+                // Ändern Sie hier in den Hellmodus
+                btnChangeMode.Content = "Dark";
+                this.Background = Brushes.White;
+                btnChangeMode.Foreground = Brushes.Black;
+                ChangeAllTextForeground(this, Brushes.Black);
+            }
+
+            txtHighestTemperature.Foreground = foregroundColor;
+            txtLowestTemperature.Foreground = foregroundColor;
+            txtAverageTemperature.Foreground = foregroundColor;
+        }
+
+        private void ChangeAllTextForeground(DependencyObject parent, Brush brush)
+        {
+            if (parent == null) return;
+
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+            {
+                var child = VisualTreeHelper.GetChild(parent, i);
+
+                if (child is Control control)
+                {
+                    control.Foreground = brush;
+                }
+
+                ChangeAllTextForeground(child, brush);
+            }
+        }
     }
 }
+
