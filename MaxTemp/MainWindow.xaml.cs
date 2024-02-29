@@ -160,6 +160,8 @@ namespace MaxTemp
             txtHighestTemperature.Foreground = foregroundColor;
             txtLowestTemperature.Foreground = foregroundColor;
             txtAverageTemperature.Foreground = foregroundColor;
+            txtMostFrequentSensorHigh.Foreground = foregroundColor;
+            txtMostFrequentSensorLow.Foreground = foregroundColor;
         }
 
         private void ChangeAllTextForeground(DependencyObject parent, Brush brush)
