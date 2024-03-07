@@ -136,7 +136,9 @@ namespace MaxTemp
             changeMode(isDarkMode);
         }
 
-        private void changeMode(bool isDarkMode)
+
+        private void changeMode(bool isDarkMode) 
+
         {
             isDarkMode = !isDarkMode;
             Brush foregroundColor = isDarkMode ? Brushes.White : Brushes.Black;
@@ -160,8 +162,10 @@ namespace MaxTemp
             txtHighestTemperature.Foreground = foregroundColor;
             txtLowestTemperature.Foreground = foregroundColor;
             txtAverageTemperature.Foreground = foregroundColor;
+
             txtMostFrequentSensorHigh.Foreground = foregroundColor;
             txtMostFrequentSensorLow.Foreground = foregroundColor;
+
         }
 
         private void ChangeAllTextForeground(DependencyObject parent, Brush brush)
@@ -182,3 +186,4 @@ namespace MaxTemp
         }
     }
 }
+
