@@ -17,7 +17,7 @@ using System.Windows.Shapes;
 
 namespace MaxTemp
 {
-    
+
 
     public partial class MainWindow : Window
     {
