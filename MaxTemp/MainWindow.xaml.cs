@@ -17,6 +17,8 @@ using System.Windows.Shapes;
 
 namespace MaxTemp
 {
+    
+
     public partial class MainWindow : Window
     {
         private bool isDarkMode = false;
@@ -35,6 +37,7 @@ namespace MaxTemp
                 double lowestTemperature = double.MaxValue; // Set to maximum possible value
                 double totalTemperature = 0;
                 int temperatureCount = 0;
+                Dictionary<string, Dictionary<double, int>> sensorTemperatureFrequency = new Dictionary<string, Dictionary<double, int>>();
 
                 using (StreamReader reader = new StreamReader(filePath))
                 {
@@ -45,8 +48,24 @@ namespace MaxTemp
 
                         if (values.Length >= 3)
                         {
+                            string sensorName = values[0];
                             double temperature = double.Parse(values[2], CultureInfo.InvariantCulture);
 
+                            // Initialisiere den Dictionary-Eintrag für den aktuellen Sensor, wenn nicht vorhanden
+                            if (!sensorTemperatureFrequency.ContainsKey(sensorName))
+                            {
+                                sensorTemperatureFrequency[sensorName] = new Dictionary<double, int>();
+                            }
+
+                            // Aktualisiere die Häufigkeit für die aktuelle Temperatur und den aktuellen Sensor
+                            if (sensorTemperatureFrequency[sensorName].ContainsKey(temperature))
+                            {
+                                sensorTemperatureFrequency[sensorName][temperature]++;
+                            }
+                            else
+                            {
+                                sensorTemperatureFrequency[sensorName][temperature] = 1;
+                            }
                             if (temperature > highestTemperature)
                             {
                                 highestTemperature = temperature;
@@ -63,10 +82,42 @@ namespace MaxTemp
                     }
                 }
 
+                // Sensor mit der höchsten Häufigkeit für die höchste Temperatur finden
+                string mostFrequentSensorHigh = "";
+                double highestTemperatureFrequency = 0;
+
+                foreach (var entry in sensorTemperatureFrequency)
+                {
+                    var maxFrequencyEntry = entry.Value.Aggregate((x, y) => x.Value > y.Value ? x : y);
+
+                    if (maxFrequencyEntry.Value > highestTemperatureFrequency)
+                    {
+                        highestTemperatureFrequency = maxFrequencyEntry.Value;
+                        mostFrequentSensorHigh = entry.Key;
+                    }
+                }
+
+                // Sensor mit der höchsten Häufigkeit für die niedrigste Temperatur finden
+                string mostFrequentSensorLow = "";
+                double lowestTemperatureFrequency = double.MaxValue;
+
+                foreach (var entry in sensorTemperatureFrequency)
+                {
+                    var minFrequencyEntry = entry.Value.Aggregate((x, y) => x.Value < y.Value ? x : y);
+
+                    if (minFrequencyEntry.Value < lowestTemperatureFrequency)
+                    {
+                        lowestTemperatureFrequency = minFrequencyEntry.Value;
+                        mostFrequentSensorLow = entry.Key;
+                    }
+                }
+
                 double averageTemperature = totalTemperature / temperatureCount;
                 txtHighestTemperature.Text = highestTemperature.ToString("F2", CultureInfo.InvariantCulture) + " C°";
                 txtLowestTemperature.Text = lowestTemperature.ToString("F2", CultureInfo.InvariantCulture) + " C°";
                 txtAverageTemperature.Text = averageTemperature.ToString("F2", CultureInfo.InvariantCulture) + " C°";
+                txtMostFrequentSensorHigh.Text = $"{mostFrequentSensorHigh} - Häufigkeit: {highestTemperatureFrequency}";
+                txtMostFrequentSensorLow.Text = $"{mostFrequentSensorLow} - Häufigkeit: {lowestTemperatureFrequency}";
             }
             catch (Exception ex)
             {
@@ -85,7 +136,9 @@ namespace MaxTemp
             changeMode(isDarkMode);
         }
 
+
         private void changeMode(bool isDarkMode) 
+
         {
             isDarkMode = !isDarkMode;
             Brush foregroundColor = isDarkMode ? Brushes.White : Brushes.Black;
@@ -109,6 +162,10 @@ namespace MaxTemp
             txtHighestTemperature.Foreground = foregroundColor;
             txtLowestTemperature.Foreground = foregroundColor;
             txtAverageTemperature.Foreground = foregroundColor;
+
+            txtMostFrequentSensorHigh.Foreground = foregroundColor;
+            txtMostFrequentSensorLow.Foreground = foregroundColor;
+
         }
 
         private void ChangeAllTextForeground(DependencyObject parent, Brush brush)

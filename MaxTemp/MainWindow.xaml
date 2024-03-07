@@ -5,12 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MaxTemp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" ResizeMode="NoResize">
+        Title="Temperaturen Auswerten" Height="600" Width="800" ResizeMode="NoResize" Background="White">
     <Viewbox>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="0*" />
+                <ColumnDefinition Width="500" />
+                <ColumnDefinition Width="0*" />
             </Grid.ColumnDefinitions>
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*" />
                 <RowDefinition Height="1*" />
@@ -23,11 +26,19 @@
             <Label Grid.Row="2" x:Name="lblAusgabe" Margin="5,0,90,23" Content="Höchst Temperatur: "/>
             <Label Grid.Row="2" x:Name="lblAverageTemp" Margin="5,19,90,4" Content="Durchschnittliche Temperatur: "/>
             <Label Grid.Row="2" x:Name="lblLowestTemp" Margin="5,37,90,-3" Content="Niedrigste Temperatur: "/>
-            <TextBlock Grid.Row="2" x:Name="txtHighestTemperature" Margin="175,6,0,0" VerticalAlignment="Top"/>
-            <TextBlock Grid.Row="2" x:Name="txtAverageTemperature" Margin="175,24,0,0" VerticalAlignment="Top"/>
-            <TextBlock Grid.Row="2" x:Name="txtLowestTemperature" Margin="175,40,0,0" VerticalAlignment="Top"/>
+            <TextBlock x:Name="txtMostFrequentSensorHigh" Margin="300,-78,0,0" VerticalAlignment="Top"/>
+            <TextBlock x:Name="txtMostFrequentSensorLow" Margin="300,-50,0,0" VerticalAlignment="Top"/>
+            <TextBlock Grid.Row="2" x:Name="txtHighestTemperature" Margin="200,-23,0,0" VerticalAlignment="Top"/>
+            <TextBlock Grid.Row="2" x:Name="txtAverageTemperature" Margin="200,-78,170,0" VerticalAlignment="Top"/>
+            <TextBlock Grid.Row="2" x:Name="txtLowestTemperature" Margin="200,-50,170,0" VerticalAlignment="Top"/>
 
 
+
+                </StackPanel>
+
+                <Button Grid.Row="2" Name="btnBeenden" Click="btnBeenden_Click" Margin="10,10,0,24" HorizontalAlignment="Left" Width="60" FontSize="14" Background="Silver" Foreground="Black">Beenden</Button>
+                <Button Grid.Row="2" Name="btnChangeMode" Click="btnChangeMode_Click" Margin="83,16,0,29" HorizontalAlignment="Left" Width="35" Height="12" FontSize="6" RenderTransformOrigin="0.072,0.501">Modus</Button>
+            </Grid>
         </Grid>
     </Viewbox>
 </Window>
