@@ -33,8 +33,8 @@ namespace MaxTemp
             try
             {
                 string filePath = "temps.csv";
-                double highestTemperature = double.MinValue; // Set to minimum possible value
-                double lowestTemperature = double.MaxValue; // Set to maximum possible value
+                double highestTemperature = double.MinValue;
+                double lowestTemperature = double.MaxValue;
                 double totalTemperature = 0;
                 int temperatureCount = 0;
                 Dictionary<string, Dictionary<double, int>> sensorTemperatureFrequency = new Dictionary<string, Dictionary<double, int>>();
@@ -51,13 +51,11 @@ namespace MaxTemp
                             string sensorName = values[0];
                             double temperature = double.Parse(values[2], CultureInfo.InvariantCulture);
 
-                            // Initialisiere den Dictionary-Eintrag für den aktuellen Sensor, wenn nicht vorhanden
                             if (!sensorTemperatureFrequency.ContainsKey(sensorName))
                             {
                                 sensorTemperatureFrequency[sensorName] = new Dictionary<double, int>();
                             }
 
-                            // Aktualisiere die Häufigkeit für die aktuelle Temperatur und den aktuellen Sensor
                             if (sensorTemperatureFrequency[sensorName].ContainsKey(temperature))
                             {
                                 sensorTemperatureFrequency[sensorName][temperature]++;
@@ -82,7 +80,6 @@ namespace MaxTemp
                     }
                 }
 
-                // Sensor mit der höchsten Häufigkeit für die höchste Temperatur finden
                 string mostFrequentSensorHigh = "";
                 double highestTemperatureFrequency = 0;
 
@@ -97,7 +94,6 @@ namespace MaxTemp
                     }
                 }
 
-                // Sensor mit der höchsten Häufigkeit für die niedrigste Temperatur finden
                 string mostFrequentSensorLow = "";
                 double lowestTemperatureFrequency = double.MaxValue;
 
@@ -144,7 +140,6 @@ namespace MaxTemp
             Brush foregroundColor = isDarkMode ? Brushes.White : Brushes.Black;
             if (isDarkMode)
             {
-                // Ändern Sie hier in den Dunkelmodus
                 btnChangeMode.Content = "Light";
                 this.Background = Brushes.Black;
                 btnChangeMode.Foreground = Brushes.White;
@@ -152,7 +147,6 @@ namespace MaxTemp
             }
             else
             {
-                // Ändern Sie hier in den Hellmodus
                 btnChangeMode.Content = "Dark";
                 this.Background = Brushes.White;
                 btnChangeMode.Foreground = Brushes.Black;
