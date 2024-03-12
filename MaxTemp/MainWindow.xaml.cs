@@ -21,7 +21,8 @@ namespace MaxTemp
 
     public partial class MainWindow : Window
     {
-        private bool isDarkMode = false;
+        public bool isDarkMode = false;
+        private LoadingScreen loadingScreen;
 
         public MainWindow()
         {
@@ -30,95 +31,14 @@ namespace MaxTemp
 
         private void BtnAuswerten_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (loadingScreen == null)
             {
-                string filePath = "temps.csv";
-                double highestTemperature = double.MinValue;
-                double lowestTemperature = double.MaxValue;
-                double totalTemperature = 0;
-                int temperatureCount = 0;
-                Dictionary<string, Dictionary<double, int>> sensorTemperatureFrequency = new Dictionary<string, Dictionary<double, int>>();
-
-                using (StreamReader reader = new StreamReader(filePath))
-                {
-                    while (!reader.EndOfStream)
-                    {
-                        string line = reader.ReadLine();
-                        string[] values = line.Split(',');
-
-                        if (values.Length >= 3)
-                        {
-                            string sensorName = values[0];
-                            double temperature = double.Parse(values[2], CultureInfo.InvariantCulture);
-
-                            if (!sensorTemperatureFrequency.ContainsKey(sensorName))
-                            {
-                                sensorTemperatureFrequency[sensorName] = new Dictionary<double, int>();
-                            }
-
-                            if (sensorTemperatureFrequency[sensorName].ContainsKey(temperature))
-                            {
-                                sensorTemperatureFrequency[sensorName][temperature]++;
-                            }
-                            else
-                            {
-                                sensorTemperatureFrequency[sensorName][temperature] = 1;
-                            }
-                            if (temperature > highestTemperature)
-                            {
-                                highestTemperature = temperature;
-                            }
-
-                            if (temperature < lowestTemperature)
-                            {
-                                lowestTemperature = temperature;
-                            }
-
-                            totalTemperature += temperature;
-                            temperatureCount++;
-                        }
-                    }
-                }
-
-                string mostFrequentSensorHigh = "";
-                double highestTemperatureFrequency = 0;
-
-                foreach (var entry in sensorTemperatureFrequency)
-                {
-                    var maxFrequencyEntry = entry.Value.Aggregate((x, y) => x.Value > y.Value ? x : y);
-
-                    if (maxFrequencyEntry.Value > highestTemperatureFrequency)
-                    {
-                        highestTemperatureFrequency = maxFrequencyEntry.Value;
-                        mostFrequentSensorHigh = entry.Key;
-                    }
-                }
-
-                string mostFrequentSensorLow = "";
-                double lowestTemperatureFrequency = double.MaxValue;
-
-                foreach (var entry in sensorTemperatureFrequency)
-                {
-                    var minFrequencyEntry = entry.Value.Aggregate((x, y) => x.Value < y.Value ? x : y);
-
-                    if (minFrequencyEntry.Value < lowestTemperatureFrequency)
-                    {
-                        lowestTemperatureFrequency = minFrequencyEntry.Value;
-                        mostFrequentSensorLow = entry.Key;
-                    }
-                }
-
-                double averageTemperature = totalTemperature / temperatureCount;
-                txtHighestTemperature.Text = highestTemperature.ToString("F2", CultureInfo.InvariantCulture) + " C°";
-                txtLowestTemperature.Text = lowestTemperature.ToString("F2", CultureInfo.InvariantCulture) + " C°";
-                txtAverageTemperature.Text = averageTemperature.ToString("F2", CultureInfo.InvariantCulture) + " C°";
-                txtMostFrequentSensorHigh.Text = $"{mostFrequentSensorHigh} - Häufigkeit: {highestTemperatureFrequency}";
-                txtMostFrequentSensorLow.Text = $"{mostFrequentSensorLow} - Häufigkeit: {lowestTemperatureFrequency}";
+                loadingScreen = new LoadingScreen();
+                loadingScreen.Owner = this;
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Fehler beim Auswerten: {ex.Message}");
-            }
+
+            loadingScreen.Loading();
+            loadingScreen.Show();
         }
 
         private void btnBeenden_Click(object sender, RoutedEventArgs e)
