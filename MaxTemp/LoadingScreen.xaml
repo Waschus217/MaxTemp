@@ -6,7 +6,24 @@
         xmlns:local="clr-namespace:MaxTemp"
         mc:Ignorable="d"
         Title="LoadingScreen" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+    <Viewbox>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0*" />
+                <ColumnDefinition Width="500" />
+                <ColumnDefinition Width="0*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+
+                <Image Grid.Row="1" Source="https://c.tenor.com/jfmI0j5FcpAAAAAd/tenor.gif" Margin="10"/>
+
+            </Grid>
+        </Grid>
+    </Viewbox>
 </Window>
