@@ -168,12 +168,14 @@ namespace MaxTemp
         {
             isDarkMode = !isDarkMode;
             Brush foregroundColor = isDarkMode ? Brushes.White : Brushes.Black;
+            Brush colorForCalender = isDarkMode ? Brushes.White : Brushes.Black;
             if (isDarkMode)
             {
                 btnChangeMode.Content = "Light";
                 this.Background = Brushes.Black;
                 btnChangeMode.Foreground = Brushes.White;
                 ChangeAllTextForeground(this, Brushes.White);
+                calendar.Foreground = colorForCalender;
             }
             else
             {
@@ -189,6 +191,7 @@ namespace MaxTemp
 
             txtMostFrequentSensorHigh.Foreground = foregroundColor;
             txtMostFrequentSensorLow.Foreground = foregroundColor;
+            calendar.Foreground = colorForCalender;
         }
 
         private void ChangeAllTextForeground(DependencyObject parent, Brush brush)
