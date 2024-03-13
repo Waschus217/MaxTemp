@@ -15,13 +15,23 @@
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="259*"/>
+                    <ColumnDefinition Width="241*"/>
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*" />
                     <RowDefinition Height="2*" />
                     <RowDefinition Height="1*" />
                 </Grid.RowDefinitions>
 
-                <Image Grid.Row="1" Source="https://c.tenor.com/jfmI0j5FcpAAAAAd/tenor.gif" Margin="10"/>
+
+                <Image Grid.Row="1" Source="https://c.tenor.com/jfmI0j5FcpAAAAAd/tenor.gif" Margin="-213,0,233,0" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
+                <Label x:Name="lblAusgabe" Content="Hilfreiche Tipps:" FontSize="30" Foreground="Black" Margin="28,21,-86,394" Grid.Row="1" RenderTransformOrigin="0.516,0.503" Grid.Column="1"/>
+
+                <ListBox x:Name="helpfulTipsListBox" VerticalAlignment="Top" FontSize="22" RenderTransformOrigin="0.484,0.416" Margin="40,118,-175,0" Grid.Column="1" Grid.Row="1" Height="132">
+                    <ListBoxItem Content="Drücke auf Auswerten &#x0a;um dein Ergebnis zu erhalten."/>
+                </ListBox>
 
             </Grid>
         </Grid>

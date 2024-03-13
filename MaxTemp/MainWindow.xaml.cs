@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace MaxTemp
 {
@@ -13,12 +14,25 @@ namespace MaxTemp
     {
         public bool isDarkMode = false;
         private LoadingScreen loadingScreen;
+        private DispatcherTimer timer = new DispatcherTimer();
 
         public MainWindow()
         {
             InitializeComponent();
+            timer.Interval = TimeSpan.FromSeconds(3);
+            timer.Tick += Timer_Tick;
         }
 
+        private List<string> helpfulTips = new List<string>
+        {
+            "Wusstest du, dass Menschen mit \nNussalergie keine Nüsse essen?",
+            "Wenn zwei Menschen immer \ndasselbe denken, \nist einer von ihnen überflüssig.",
+            "Es gibt immer zwei Meinungen:\nMeine und die Falsche.",
+            "Die meisten Probleme \nlösen sich von alleine.\nMan darf sie nur nicht dabei stören.",
+            "Wenn deine Chaya \nClubbesitzer kennt. \nDann ist sie eine Thot",
+            "Versuche nicht, \nAlpha wütend zu machen."
+        };
+        
         private void BtnAuswerten_Click(object sender, RoutedEventArgs e)
         {
             if (loadingScreen == null)
@@ -29,6 +43,14 @@ namespace MaxTemp
 
             loadingScreen.Loading();
             loadingScreen.Show();
+            timer.Start();
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            Random random = new Random();
+            int index = random.Next(helpfulTips.Count);
+            loadingScreen.helpfulTipsListBox.Items[0] = helpfulTips[index];
         }
 
         private void btnBeenden_Click(object sender, RoutedEventArgs e)
