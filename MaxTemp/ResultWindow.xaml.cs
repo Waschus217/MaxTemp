@@ -3,61 +3,29 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace MaxTemp
 {
-    public partial class MainWindow : Window
+    public partial class ResultWindow : Window
     {
-        public bool isDarkMode = false;
-        private LoadingScreen loadingScreen;
+        private bool isDarkMode = false;
 
-        public MainWindow()
+        public ResultWindow()
         {
             InitializeComponent();
         }
 
-        private void BtnAuswerten_Click(object sender, RoutedEventArgs e)
-        {
-            if (loadingScreen == null)
-            {
-                loadingScreen = new LoadingScreen();
-                loadingScreen.Owner = this;
-            }
-
-            loadingScreen.Loading();
-            loadingScreen.Show();
-        }
-
-        private void btnBeenden_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void btnChangeMode_Click(object sender, RoutedEventArgs e)
-        {
-            isDarkMode = !isDarkMode;
-            changeMode(isDarkMode);
-        }
-
-        private void Calendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
-        {
-            try
-            {
-                DateTime selectedDate = calendar.SelectedDate ?? DateTime.Now;
-
-                // Führe die Berechnungen für das ausgewählte Datum durch
-                CalculateStatisticsForDate(selectedDate);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Fehler beim Auswerten: {ex.Message}");
-            }
-        }
-
-        private void CalculateStatisticsForDate(DateTime selectedDate)
+        public void Auswerten()
         {
             try
             {
@@ -77,40 +45,34 @@ namespace MaxTemp
 
                         if (values.Length >= 3)
                         {
-                            DateTime currentDate = DateTime.ParseExact(values[1], "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+                            string sensorName = values[0];
+                            double temperature = double.Parse(values[2], CultureInfo.InvariantCulture);
 
-                            if (currentDate.Date == selectedDate.Date)
+                            if (!sensorTemperatureFrequency.ContainsKey(sensorName))
                             {
-                                string sensorName = values[0];
-                                double temperature = double.Parse(values[2], CultureInfo.InvariantCulture);
-
-                                if (!sensorTemperatureFrequency.ContainsKey(sensorName))
-                                {
-                                    sensorTemperatureFrequency[sensorName] = new Dictionary<double, int>();
-                                }
-
-                                if (sensorTemperatureFrequency[sensorName].ContainsKey(temperature))
-                                {
-                                    sensorTemperatureFrequency[sensorName][temperature]++;
-                                }
-                                else
-                                {
-                                    sensorTemperatureFrequency[sensorName][temperature] = 1;
-                                }
-
-                                if (temperature > highestTemperature)
-                                {
-                                    highestTemperature = temperature;
-                                }
-
-                                if (temperature < lowestTemperature)
-                                {
-                                    lowestTemperature = temperature;
-                                }
-
-                                totalTemperature += temperature;
-                                temperatureCount++;
+                                sensorTemperatureFrequency[sensorName] = new Dictionary<double, int>();
                             }
+
+                            if (sensorTemperatureFrequency[sensorName].ContainsKey(temperature))
+                            {
+                                sensorTemperatureFrequency[sensorName][temperature]++;
+                            }
+                            else
+                            {
+                                sensorTemperatureFrequency[sensorName][temperature] = 1;
+                            }
+                            if (temperature > highestTemperature)
+                            {
+                                highestTemperature = temperature;
+                            }
+
+                            if (temperature < lowestTemperature)
+                            {
+                                lowestTemperature = temperature;
+                            }
+
+                            totalTemperature += temperature;
+                            temperatureCount++;
                         }
                     }
                 }
@@ -144,14 +106,11 @@ namespace MaxTemp
                 }
 
                 double averageTemperature = totalTemperature / temperatureCount;
-                UpdateUI(() =>
-                {
-                    txtHighestTemperature.Text = highestTemperature.ToString("F2", CultureInfo.InvariantCulture) + " C°";
-                    txtLowestTemperature.Text = lowestTemperature.ToString("F2", CultureInfo.InvariantCulture) + " C°";
-                    txtAverageTemperature.Text = averageTemperature.ToString("F2", CultureInfo.InvariantCulture) + " C°";
-                    txtMostFrequentSensorHigh.Text = $"{mostFrequentSensorHigh} - Häufigkeit: {highestTemperatureFrequency}";
-                    txtMostFrequentSensorLow.Text = $"{mostFrequentSensorLow} - Häufigkeit: {lowestTemperatureFrequency}";
-                });
+                txtHighestTemperature.Text = highestTemperature.ToString("F2", CultureInfo.InvariantCulture) + " C°";
+                txtLowestTemperature.Text = lowestTemperature.ToString("F2", CultureInfo.InvariantCulture) + " C°";
+                txtAverageTemperature.Text = averageTemperature.ToString("F2", CultureInfo.InvariantCulture) + " C°";
+                txtMostFrequentSensorHigh.Text = $"{mostFrequentSensorHigh} - Häufigkeit: {highestTemperatureFrequency}";
+                txtMostFrequentSensorLow.Text = $"{mostFrequentSensorLow} - Häufigkeit: {lowestTemperatureFrequency}";
             }
             catch (Exception ex)
             {
@@ -159,12 +118,20 @@ namespace MaxTemp
             }
         }
 
-        private void UpdateUI(Action action)
+        private void btnBeenden_Click(object sender, RoutedEventArgs e)
         {
-            Dispatcher.BeginInvoke(action);
+            this.Close();
         }
 
+        private void btnChangeMode_Click(object sender, RoutedEventArgs e)
+        {
+            isDarkMode = !isDarkMode;
+            changeMode(isDarkMode);
+        }
+
+
         private void changeMode(bool isDarkMode)
+
         {
             isDarkMode = !isDarkMode;
             Brush foregroundColor = isDarkMode ? Brushes.White : Brushes.Black;
@@ -189,6 +156,7 @@ namespace MaxTemp
 
             txtMostFrequentSensorHigh.Foreground = foregroundColor;
             txtMostFrequentSensorLow.Foreground = foregroundColor;
+
         }
 
         private void ChangeAllTextForeground(DependencyObject parent, Brush brush)
@@ -209,4 +177,3 @@ namespace MaxTemp
         }
     }
 }
-
