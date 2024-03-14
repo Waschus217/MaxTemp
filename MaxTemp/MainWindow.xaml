@@ -22,7 +22,7 @@
                 </Grid.RowDefinitions>
 
                 <Label Grid.Row="0" x:Name="lblAufforderung" Margin="10,-18,10,39" FontSize="16" Foreground="Black" HorizontalContentAlignment="Center" Content="Bitte Datum auswählen und dann klicken, &#xD;&#xA;um die Temperaturen pro Tag zu sehen." VerticalAlignment = "Center" HorizontalAlignment="Center" Grid.ColumnSpan ="3"/>
-                <DatePicker Name="calendar" Background="Black" Margin="4,50,4,0" SelectedDateChanged="Calendar_SelectedDatesChanged" VerticalAlignment="Top" Grid.RowSpan="3">
+                <DatePicker Name="calendar" Background="Black" Margin="67,50,67,0" SelectedDateChanged="Calendar_SelectedDatesChanged" VerticalAlignment="Top" Grid.RowSpan="3">
                     <DatePicker.CalendarStyle>
                         <Style TargetType="{x:Type Calendar}">
                             <Setter Property="Background" Value="White" />
@@ -35,7 +35,7 @@
                     </DatePicker.Resources>
                 </DatePicker>
 
-                <Button Grid.Row="2" Name="btnAuswerten" Click="BtnAuswerten_Click" Margin="10,113,10,-3" FontSize="14" Background="Silver" Foreground="Black" Content="Auswerten der kompletten Datei"/>
+                <Button Grid.Row="2" Name="btnAuswerten" Click="BtnAuswerten_Click" Margin="67,113,67,-3" FontSize="14" Background="Silver" Foreground="Black" Content="Auswerten der kompletten Datei"/>
 
                 <StackPanel Grid.Row="2" Margin="10,10,10,10" Grid.ColumnSpan="3">
                     <Label x:Name="lblAusgabe" Content="Höchste Temperatur:" FontSize="14" Foreground="Black"/>
@@ -49,7 +49,7 @@
                 </StackPanel>
 
                 <Button Grid.Row="2" Name="btnBeenden" Click="btnBeenden_Click" Margin="430,176,0,-52" HorizontalAlignment="Left" Width="60" FontSize="14" Background="Silver" Content="Beenden"/>
-                <Button Grid.Row="2" Name="btnChangeMode" Click="btnChangeMode_Click" Margin="343,176,0,-52" HorizontalAlignment="Left" Width="60" FontSize="14" Background="Silver" Content="Modus"/>
+                <Button Grid.Row="2" Name="btnChangeMode" Click="btnChangeMode_Click" Margin="357,176,0,-52" HorizontalAlignment="Left" Width="60" FontSize="14" Background="Silver" Content="Modus"/>
             </Grid>
         </Grid>
     </Viewbox>

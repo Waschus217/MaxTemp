@@ -41,7 +41,7 @@ namespace MaxTemp
         public void StartTimer()
         {
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(30);
+            timer.Interval = TimeSpan.FromSeconds(10);
             timer.Tick += TimerTicker;
             timer.Start();
         }

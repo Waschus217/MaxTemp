@@ -30,7 +30,8 @@ namespace MaxTemp
             "Es gibt immer zwei Meinungen:\nMeine und die Falsche.",
             "Die meisten Probleme \nlösen sich von alleine.\nMan darf sie nur nicht dabei stören.",
             "Wenn deine Chaya \nClubbesitzer kennt. \nDann ist sie eine Thot",
-            "Versuche nicht, \nAlpha wütend zu machen."
+            "Versuche nicht, \nAlpha wütend zu machen.",
+            "Pluto \nNever Forget \n1930-2006"
         };
         
         private void BtnAuswerten_Click(object sender, RoutedEventArgs e)
